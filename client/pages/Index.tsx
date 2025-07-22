@@ -1,19 +1,26 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
-import { 
-  Filter, 
-  Download, 
-  Upload, 
-  Trash2, 
-  Plus, 
-  User, 
+import {
+  Filter,
+  Download,
+  Upload,
+  Trash2,
+  Plus,
+  User,
   LogOut,
   ChevronDown,
-  ArrowUpDown
+  ArrowUpDown,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -27,20 +34,118 @@ interface VehicleData {
 }
 
 const initialData: VehicleData[] = [
-  { id: 1, brand: "Volkswagen Group", country: "Germany", vehicles: 10126281, website: "http://vwag.com/", selected: false },
-  { id: 2, brand: "BMW", country: "Germany", vehicles: 2359708, website: "http://bmw.com/", selected: false },
-  { id: 3, brand: "Toyota", country: "Japan", vehicles: 10213486, website: "http://toyota.com/", selected: false },
-  { id: 4, brand: "General Motors", country: "United States", vehicles: 9937434, website: "http://gm.com/", selected: false },
-  { id: 5, brand: "Ford", country: "United States", vehicles: 6429485, website: "http://ford.com/", selected: false },
-  { id: 6, brand: "Honda", country: "Japan", vehicles: 4999266, website: "http://honda.com/", selected: false },
-  { id: 7, brand: "Volkswagen Group", country: "Germany", vehicles: 10126281, website: "http://vwag.com/", selected: false },
-  { id: 8, brand: "BMW", country: "Germany", vehicles: 2359708, website: "http://bmw.com/", selected: false },
-  { id: 9, brand: "Toyota", country: "Japan", vehicles: 10213486, website: "http://toyota.com/", selected: false },
-  { id: 10, brand: "General Motors", country: "United States", vehicles: 9937434, website: "http://gm.com/", selected: false },
-  { id: 11, brand: "Ford", country: "United States", vehicles: 6429485, website: "http://ford.com/", selected: false },
-  { id: 12, brand: "Honda", country: "Japan", vehicles: 4999266, website: "http://honda.com/", selected: false },
-  { id: 13, brand: "Volkswagen Group", country: "United States", vehicles: 9937434, website: "http://vwag.com/", selected: false },
-  { id: 14, brand: "BMW", country: "United States", vehicles: 6429485, website: "http://bmw.com/", selected: false },
+  {
+    id: 1,
+    brand: "Volkswagen Group",
+    country: "Germany",
+    vehicles: 10126281,
+    website: "http://vwag.com/",
+    selected: false,
+  },
+  {
+    id: 2,
+    brand: "BMW",
+    country: "Germany",
+    vehicles: 2359708,
+    website: "http://bmw.com/",
+    selected: false,
+  },
+  {
+    id: 3,
+    brand: "Toyota",
+    country: "Japan",
+    vehicles: 10213486,
+    website: "http://toyota.com/",
+    selected: false,
+  },
+  {
+    id: 4,
+    brand: "General Motors",
+    country: "United States",
+    vehicles: 9937434,
+    website: "http://gm.com/",
+    selected: false,
+  },
+  {
+    id: 5,
+    brand: "Ford",
+    country: "United States",
+    vehicles: 6429485,
+    website: "http://ford.com/",
+    selected: false,
+  },
+  {
+    id: 6,
+    brand: "Honda",
+    country: "Japan",
+    vehicles: 4999266,
+    website: "http://honda.com/",
+    selected: false,
+  },
+  {
+    id: 7,
+    brand: "Volkswagen Group",
+    country: "Germany",
+    vehicles: 10126281,
+    website: "http://vwag.com/",
+    selected: false,
+  },
+  {
+    id: 8,
+    brand: "BMW",
+    country: "Germany",
+    vehicles: 2359708,
+    website: "http://bmw.com/",
+    selected: false,
+  },
+  {
+    id: 9,
+    brand: "Toyota",
+    country: "Japan",
+    vehicles: 10213486,
+    website: "http://toyota.com/",
+    selected: false,
+  },
+  {
+    id: 10,
+    brand: "General Motors",
+    country: "United States",
+    vehicles: 9937434,
+    website: "http://gm.com/",
+    selected: false,
+  },
+  {
+    id: 11,
+    brand: "Ford",
+    country: "United States",
+    vehicles: 6429485,
+    website: "http://ford.com/",
+    selected: false,
+  },
+  {
+    id: 12,
+    brand: "Honda",
+    country: "Japan",
+    vehicles: 4999266,
+    website: "http://honda.com/",
+    selected: false,
+  },
+  {
+    id: 13,
+    brand: "Volkswagen Group",
+    country: "United States",
+    vehicles: 9937434,
+    website: "http://vwag.com/",
+    selected: false,
+  },
+  {
+    id: 14,
+    brand: "BMW",
+    country: "United States",
+    vehicles: 6429485,
+    website: "http://bmw.com/",
+    selected: false,
+  },
 ];
 
 export default function Index() {
@@ -49,17 +154,17 @@ export default function Index() {
   const [selectedCount, setSelectedCount] = useState(0);
 
   const handleSelectAll = (checked: boolean) => {
-    const updatedData = data.map(item => ({ ...item, selected: checked }));
+    const updatedData = data.map((item) => ({ ...item, selected: checked }));
     setData(updatedData);
     setSelectedCount(checked ? data.length : 0);
   };
 
   const handleSelectRow = (id: number, checked: boolean) => {
-    const updatedData = data.map(item => 
-      item.id === id ? { ...item, selected: checked } : item
+    const updatedData = data.map((item) =>
+      item.id === id ? { ...item, selected: checked } : item,
     );
     setData(updatedData);
-    setSelectedCount(updatedData.filter(item => item.selected).length);
+    setSelectedCount(updatedData.filter((item) => item.selected).length);
   };
 
   const formatNumber = (num: number) => {
@@ -68,9 +173,9 @@ export default function Index() {
 
   const getCountryFlag = (country: string) => {
     const flags: { [key: string]: string } = {
-      "Germany": "🇩🇪",
-      "Japan": "🇯🇵", 
-      "United States": "🇺🇸"
+      Germany: "🇩🇪",
+      Japan: "🇯🇵",
+      "United States": "🇺🇸",
     };
     return flags[country] || "🌍";
   };
@@ -89,7 +194,9 @@ export default function Index() {
             </div>
           </div>
           <div className="flex items-center space-x-1 sm:space-x-3">
-            <span className="text-sm text-gray-600 hidden sm:block">Philip</span>
+            <span className="text-sm text-gray-600 hidden sm:block">
+              Philip
+            </span>
             <Button variant="ghost" size="sm" className="text-gray-600">
               <LogOut className="w-4 h-4 sm:mr-1" />
               <span className="hidden sm:inline">Sign out</span>
@@ -105,7 +212,9 @@ export default function Index() {
           <span>/</span>
           <span className="whitespace-nowrap">Projects</span>
           <span>/</span>
-          <span className="text-gray-900 font-medium whitespace-nowrap">Vehicles</span>
+          <span className="text-gray-900 font-medium whitespace-nowrap">
+            Vehicles
+          </span>
           <div className="flex items-center space-x-1 ml-2">
             <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
             <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
@@ -120,15 +229,43 @@ export default function Index() {
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 space-y-4 sm:space-y-0">
             <div className="overflow-x-auto">
               <TabsList className="bg-gray-100 w-full sm:w-auto">
-                <TabsTrigger value="companies" className="px-2 sm:px-4 text-xs sm:text-sm">Companies</TabsTrigger>
-                <TabsTrigger value="models" className="px-2 sm:px-4 text-xs sm:text-sm">Models</TabsTrigger>
-                <TabsTrigger value="engines" className="px-2 sm:px-4 text-xs sm:text-sm">Engines</TabsTrigger>
-                <TabsTrigger value="prices" className="px-2 sm:px-4 text-xs sm:text-sm">Prices</TabsTrigger>
-                <TabsTrigger value="social" className="px-2 sm:px-4 text-xs sm:text-sm">Social</TabsTrigger>
+                <TabsTrigger
+                  value="companies"
+                  className="px-2 sm:px-4 text-xs sm:text-sm"
+                >
+                  Companies
+                </TabsTrigger>
+                <TabsTrigger
+                  value="models"
+                  className="px-2 sm:px-4 text-xs sm:text-sm"
+                >
+                  Models
+                </TabsTrigger>
+                <TabsTrigger
+                  value="engines"
+                  className="px-2 sm:px-4 text-xs sm:text-sm"
+                >
+                  Engines
+                </TabsTrigger>
+                <TabsTrigger
+                  value="prices"
+                  className="px-2 sm:px-4 text-xs sm:text-sm"
+                >
+                  Prices
+                </TabsTrigger>
+                <TabsTrigger
+                  value="social"
+                  className="px-2 sm:px-4 text-xs sm:text-sm"
+                >
+                  Social
+                </TabsTrigger>
               </TabsList>
             </div>
             <div className="flex items-center space-x-2 justify-end">
-              <Badge variant="secondary" className="bg-red-100 text-red-700 hover:bg-red-100">
+              <Badge
+                variant="secondary"
+                className="bg-red-100 text-red-700 hover:bg-red-100"
+              >
                 <div className="w-2 h-2 bg-red-500 rounded-full mr-1"></div>
                 Changes
               </Badge>
@@ -141,17 +278,29 @@ export default function Index() {
             <div className="bg-white rounded-lg border border-gray-200 mb-4">
               <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between p-4 border-b border-gray-100 space-y-3 lg:space-y-0">
                 <div className="flex flex-wrap items-center gap-2">
-                  <Button variant="outline" size="sm" className="text-xs sm:text-sm">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="text-xs sm:text-sm"
+                  >
                     <Filter className="w-4 h-4 mr-1 sm:mr-2" />
                     <span className="hidden sm:inline">Add filter</span>
                     <span className="sm:hidden">Filter</span>
                   </Button>
-                  <Button variant="outline" size="sm" className="text-xs sm:text-sm">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="text-xs sm:text-sm"
+                  >
                     <Download className="w-4 h-4 mr-1 sm:mr-2" />
                     <span className="hidden sm:inline">Download CSV</span>
                     <span className="sm:hidden">Download</span>
                   </Button>
-                  <Button variant="outline" size="sm" className="text-xs sm:text-sm">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="text-xs sm:text-sm"
+                  >
                     <Upload className="w-4 h-4 mr-1 sm:mr-2" />
                     <span className="hidden sm:inline">Upload CSV</span>
                     <span className="sm:hidden">Upload</span>
@@ -159,18 +308,34 @@ export default function Index() {
                 </div>
                 <div className="flex flex-wrap items-center gap-2">
                   {selectedCount > 0 && (
-                    <Button variant="outline" size="sm" className="text-red-600 hover:text-red-700 text-xs sm:text-sm">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="text-red-600 hover:text-red-700 text-xs sm:text-sm"
+                    >
                       <Trash2 className="w-4 h-4 mr-1 sm:mr-2" />
-                      <span className="hidden sm:inline">Delete selected ({selectedCount})</span>
-                      <span className="sm:hidden">Delete ({selectedCount})</span>
+                      <span className="hidden sm:inline">
+                        Delete selected ({selectedCount})
+                      </span>
+                      <span className="sm:hidden">
+                        Delete ({selectedCount})
+                      </span>
                     </Button>
                   )}
-                  <Button variant="outline" size="sm" className="text-xs sm:text-sm">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="text-xs sm:text-sm"
+                  >
                     <Plus className="w-4 h-4 mr-1 sm:mr-2" />
                     <span className="hidden sm:inline">Add column</span>
                     <span className="sm:hidden">Column</span>
                   </Button>
-                  <Button variant="default" size="sm" className="text-xs sm:text-sm">
+                  <Button
+                    variant="default"
+                    size="sm"
+                    className="text-xs sm:text-sm"
+                  >
                     <Plus className="w-4 h-4 mr-1 sm:mr-2" />
                     <span className="hidden sm:inline">Add record</span>
                     <span className="sm:hidden">Record</span>
@@ -217,20 +382,24 @@ export default function Index() {
                   </TableHeader>
                   <TableBody>
                     {data.map((row, index) => (
-                      <TableRow 
-                        key={row.id} 
+                      <TableRow
+                        key={row.id}
                         className={cn(
                           "hover:bg-gray-50 border-b border-gray-50",
-                          row.selected && "bg-blue-50"
+                          row.selected && "bg-blue-50",
                         )}
                       >
                         <TableCell>
                           <div className="flex items-center space-x-3">
-                            <Checkbox 
+                            <Checkbox
                               checked={row.selected}
-                              onCheckedChange={(checked) => handleSelectRow(row.id, checked as boolean)}
+                              onCheckedChange={(checked) =>
+                                handleSelectRow(row.id, checked as boolean)
+                              }
                             />
-                            <span className="text-xs text-gray-400 w-4 text-center">{index + 1}</span>
+                            <span className="text-xs text-gray-400 w-4 text-center">
+                              {index + 1}
+                            </span>
                           </div>
                         </TableCell>
                         <TableCell className="font-medium text-gray-900">
@@ -238,7 +407,9 @@ export default function Index() {
                         </TableCell>
                         <TableCell>
                           <div className="flex items-center space-x-2">
-                            <span className="text-sm">{getCountryFlag(row.country)}</span>
+                            <span className="text-sm">
+                              {getCountryFlag(row.country)}
+                            </span>
                             <span className="text-blue-600 hover:text-blue-800 cursor-pointer">
                               {row.country}
                             </span>
@@ -248,9 +419,9 @@ export default function Index() {
                           {formatNumber(row.vehicles)}
                         </TableCell>
                         <TableCell>
-                          <a 
-                            href={row.website} 
-                            target="_blank" 
+                          <a
+                            href={row.website}
+                            target="_blank"
                             rel="noopener noreferrer"
                             className="text-blue-600 hover:text-blue-800 underline"
                           >
@@ -267,9 +438,13 @@ export default function Index() {
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-4 border-t border-gray-100 text-sm text-gray-600 space-y-2 sm:space-y-0">
                 <div className="flex items-center space-x-1">
                   <User className="w-4 h-4" />
-                  <span className="text-xs sm:text-sm">Philip added data on 8 Oct 2018</span>
+                  <span className="text-xs sm:text-sm">
+                    Philip added data on 8 Oct 2018
+                  </span>
                 </div>
-                <span className="text-xs sm:text-sm">{data.length} records</span>
+                <span className="text-xs sm:text-sm">
+                  {data.length} records
+                </span>
               </div>
             </div>
           </TabsContent>
@@ -277,8 +452,13 @@ export default function Index() {
           <TabsContent value="models">
             <div className="bg-white rounded-lg border border-gray-200 p-8 text-center">
               <div className="max-w-md mx-auto">
-                <h3 className="text-lg font-medium text-gray-900 mb-2">Models Tab</h3>
-                <p className="text-gray-600 mb-4">This tab is not yet implemented. Continue prompting to add content here.</p>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">
+                  Models Tab
+                </h3>
+                <p className="text-gray-600 mb-4">
+                  This tab is not yet implemented. Continue prompting to add
+                  content here.
+                </p>
                 <Button variant="outline">Add Models Data</Button>
               </div>
             </div>
@@ -287,8 +467,13 @@ export default function Index() {
           <TabsContent value="engines">
             <div className="bg-white rounded-lg border border-gray-200 p-8 text-center">
               <div className="max-w-md mx-auto">
-                <h3 className="text-lg font-medium text-gray-900 mb-2">Engines Tab</h3>
-                <p className="text-gray-600 mb-4">This tab is not yet implemented. Continue prompting to add content here.</p>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">
+                  Engines Tab
+                </h3>
+                <p className="text-gray-600 mb-4">
+                  This tab is not yet implemented. Continue prompting to add
+                  content here.
+                </p>
                 <Button variant="outline">Add Engines Data</Button>
               </div>
             </div>
@@ -297,8 +482,13 @@ export default function Index() {
           <TabsContent value="prices">
             <div className="bg-white rounded-lg border border-gray-200 p-8 text-center">
               <div className="max-w-md mx-auto">
-                <h3 className="text-lg font-medium text-gray-900 mb-2">Prices Tab</h3>
-                <p className="text-gray-600 mb-4">This tab is not yet implemented. Continue prompting to add content here.</p>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">
+                  Prices Tab
+                </h3>
+                <p className="text-gray-600 mb-4">
+                  This tab is not yet implemented. Continue prompting to add
+                  content here.
+                </p>
                 <Button variant="outline">Add Pricing Data</Button>
               </div>
             </div>
@@ -307,8 +497,13 @@ export default function Index() {
           <TabsContent value="social">
             <div className="bg-white rounded-lg border border-gray-200 p-8 text-center">
               <div className="max-w-md mx-auto">
-                <h3 className="text-lg font-medium text-gray-900 mb-2">Social Tab</h3>
-                <p className="text-gray-600 mb-4">This tab is not yet implemented. Continue prompting to add content here.</p>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">
+                  Social Tab
+                </h3>
+                <p className="text-gray-600 mb-4">
+                  This tab is not yet implemented. Continue prompting to add
+                  content here.
+                </p>
                 <Button variant="outline">Add Social Data</Button>
               </div>
             </div>
